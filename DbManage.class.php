@@ -286,7 +286,7 @@ class DbManage {
         $insert .= "INSERT INTO `" . $table . "` VALUES(";
         // 循环每个子段下面的内容
         for($i = 0; $i < $num_fields; $i ++) {
-            $insert .= ($comma . "'" . mysql_escape_string ( $record [$i] ) . "'");
+            $insert .= ($comma . "'" . mysql_real_escape_string ( $record [$i] ) . "'");
             $comma = ",";
         }
         $insert .= ");" . $this->ds;

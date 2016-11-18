@@ -236,6 +236,8 @@ class DbManage {
 		$value .= '--' . $this->ds;
 		$value .= '-- 数据库: `' . $this->database . '`' . $this->ds;
 		$value .= '--' . $this->ds . $this->ds;
+		$value .= 'SET FOREIGN_KEY_CHECKS = 0;' . $this->ds;
+		$value .= $this->ds;
 		$value .= '-- -------------------------------------------------------';
 		$value .= $this->ds . $this->ds;
 		return $value;
@@ -367,7 +369,7 @@ class DbManage {
 				// 存在其他分卷，继续执行
 				if (file_exists ( $tmpfile )) {
 					// 执行导入方法
-					$this->msg .= "正在导入分卷 ". $volume_id."：<span style='color:#f00;'>" . $tmpfile . '</span><br />';
+					$this->_showMsg("正在导入分卷 ". $volume_id."：<span style='color:#f00;'>" . $tmpfile . '</span><br />');
 					if ($this->_import ( $tmpfile )) {
 						$this->_showMsg ( "分卷". $volume_id."导入成功！" );
 					} else {
@@ -375,7 +377,7 @@ class DbManage {
 						exit ( "导入分卷：<span style='color:#f00;'>" . $tmpfile . '</span>失败！可能是数据库结构已损坏！请尝试从分卷1开始导入' );
 					}
 				} else {
-					$this->msg .= "此分卷备份全部导入成功！<br />";
+					$this->_showMsg("此分卷备份全部导入成功！<br />");
 					return;
 				}
 				$volume_id ++;
